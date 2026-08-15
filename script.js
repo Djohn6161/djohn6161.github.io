@@ -124,7 +124,7 @@ function initCounters() {
 function initRoleCycler() {
   const el = document.getElementById('roleText');
   if (!el) return;
-  const roles = ['Software Developer', 'PHP & Laravel Engineer', 'Python Data Specialist', 'Systems Builder'];
+  const roles = ['Backend PHP Developer', 'Full-Stack Web Developer', 'Vanilla PHP & MySQL', 'Custom Framework Builder'];
 
   if (reduceMotion) {
     el.textContent = roles[0];
@@ -166,9 +166,9 @@ function initTerminal() {
   if (!body) return;
 
   const lines = [
-    { cmd: 'whoami', out: 'Don John Daryl Curativo — Software Developer' },
-    { cmd: 'cat stack.txt', out: 'PHP · Laravel · Python · MySQL · JavaScript' },
-    { cmd: './status.sh', out: 'Building internal systems @ Biggs Inc. since 2024' },
+    { cmd: 'whoami', out: 'Don John Daryl Curativo — Backend PHP Developer' },
+    { cmd: 'cat stack.txt', out: 'Vanilla PHP · MySQL · Laravel · JavaScript · Python' },
+    { cmd: './status.sh', out: 'Aleads (remote) since 2026 · Biggs Inc. since 2024' },
   ];
 
   if (reduceMotion) return;

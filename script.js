@@ -280,6 +280,97 @@ function initTilt() {
   });
 }
 
+function pushEvent(name, params) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(Object.assign({ event: name }, params || {}));
+}
+
+function linkLocation(el) {
+  if (el.closest('.header')) return 'header';
+  if (el.closest('.mobile-nav')) return 'mobile_nav';
+  if (el.closest('.hero')) return 'hero';
+  if (el.closest('.footer')) return 'footer';
+  const section = el.closest('section[id]');
+  return section ? section.id : 'page';
+}
+
+function initAnalytics() {
+  document.querySelectorAll('a[href$=".pdf"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      pushEvent('cv_download', {
+        file_name: link.getAttribute('href').split('/').pop(),
+        link_location: linkLocation(link),
+      });
+    });
+  });
+
+  document.querySelectorAll('a[href^="mailto:"], a[href^="tel:"]').forEach((link) => {
+    const href = link.getAttribute('href');
+    link.addEventListener('click', () => {
+      pushEvent('contact_click', {
+        contact_method: href.startsWith('mailto:') ? 'email' : 'phone',
+        link_location: linkLocation(link),
+      });
+    });
+  });
+
+  // Project links get their own event below, so they're excluded here to keep
+  // one dataLayer event per click.
+  document.querySelectorAll('a[href^="http"]').forEach((link) => {
+    if (link.hostname === window.location.hostname) return;
+    if (link.classList.contains('project-card__link')) return;
+    link.addEventListener('click', () => {
+      pushEvent('outbound_click', {
+        link_domain: link.hostname,
+        link_url: link.href,
+        link_text: link.textContent.trim() || link.getAttribute('aria-label') || '',
+        link_location: linkLocation(link),
+      });
+    });
+  });
+
+  document.querySelectorAll('.project-card').forEach((card) => {
+    const link = card.querySelector('.project-card__link');
+    if (!link) return;
+    const title = card.querySelector('h3');
+    link.addEventListener('click', () => {
+      pushEvent('project_click', {
+        project_name: title ? title.textContent.trim() : '',
+        link_domain: link.hostname,
+        link_url: link.href,
+      });
+    });
+  });
+
+  const copyBtn = document.getElementById('copyEmailBtn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => pushEvent('email_copy', { contact_method: 'email' }));
+  }
+
+  document.querySelectorAll('.nav__link, .mobile-nav a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      pushEvent('nav_click', {
+        nav_target: link.getAttribute('href').slice(1),
+        link_location: linkLocation(link),
+      });
+    });
+  });
+
+  const sections = document.querySelectorAll('main section[id]');
+  if (!sections.length) return;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        pushEvent('section_view', { section_id: entry.target.id });
+      });
+    },
+    { threshold: 0.35 }
+  );
+  sections.forEach((s) => observer.observe(s));
+}
+
 function initYear() {
   const el = document.getElementById('year');
   if (el) el.textContent = new Date().getFullYear();
@@ -297,5 +388,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCopyEmail();
   initCursorGlow();
   initTilt();
+  initAnalytics();
   initYear();
 });

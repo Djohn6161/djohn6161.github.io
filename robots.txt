@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://djohn6161.github.io/sitemap.xml

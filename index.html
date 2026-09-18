@@ -40,7 +40,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:image" content="https://djohn6161.github.io/assets/og-image.png">
 <meta name="twitter:image:alt" content="Don John Daryl Curativo — Backend PHP Developer.">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238a6bff'/%3E%3Cstop offset='1' stop-color='%23ff6b9d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='67' font-family='Arial,sans-serif' font-size='46' font-weight='700' fill='white' text-anchor='middle'%3EDC%3C/text%3E%3C/svg%3E">
+<!-- Favicons: real files (Google cannot crawl data: URI icons) -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="DJ Curativo">
+<meta name="application-name" content="DJ Curativo">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -126,8 +135,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header class="header" id="header">
   <div class="container header__inner">
-    <a href="#home" class="logo" aria-label="Back to top">
-      <span class="logo__mark">DC</span>
+    <a href="#home" class="logo">
+      <img class="logo__mark" src="assets/logo-mark.png" alt="" width="44" height="44" decoding="async">
+      <span class="logo__text">
+        <strong>Don John Daryl</strong>
+        <small>Backend PHP Developer</small>
+      </span>
     </a>
     <nav class="nav" aria-label="Primary">
       <ul class="nav__list">
@@ -149,6 +162,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <div class="mobile-nav" id="mobileNav">
+  <img class="mobile-nav__mark" src="assets/logo-mark.png" alt="" width="56" height="56" decoding="async">
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -544,7 +558,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <footer class="footer">
   <div class="container footer__inner">
-    <p>&copy; <span id="year"></span> Don John Daryl Curativo. Built with HTML, CSS &amp; JavaScript.</p>
+    <p class="footer__brand">
+      <img src="assets/logo-mark.png" alt="" width="32" height="32" loading="lazy" decoding="async">
+      <span>&copy; <span id="year"></span> Don John Daryl Curativo. Built with HTML, CSS &amp; JavaScript.</span>
+    </p>
     <a href="#home" class="footer__top">Back to top &uarr;</a>
   </div>
 </footer>
